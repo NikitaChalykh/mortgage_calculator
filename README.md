@@ -57,11 +57,13 @@ cd mortgage_calculator # Переходим в директорию с прое�
 docker-compose up -d
 ```
 
-4. Запуск миграций, сбор статики и запуск тестов:
+4. Запуск миграций, сбор статики, создание суперпользователя и запуск тестов:
 ```bash 
 docker-compose exec web python manage.py migrate
 
-docker-compose exec web python manage.py collectstatic --no-input 
+docker-compose exec web python manage.py collectstatic --no-input
+
+docker-compose exec web python manage.py createsuperuser
 
 docker-compose exec web python manage.py test 
 ```
