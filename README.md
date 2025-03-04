@@ -50,7 +50,7 @@ git clone git@contest.idacloud.ru:Nikita223/mortgage_calculator.git
 cd mortgage_calculator # Переходим в директорию с проектом
 ```
 
-2. Создайте файл ```.env``` используя ```env.example``` в качестве шаблона
+2. Создайте файл ```.env``` используя ```env.example``` в качестве шаблона в папке infra
 
 3. Установка и запуск приложения в контейнерах:
 ```bash 
