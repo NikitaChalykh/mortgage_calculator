@@ -8,13 +8,15 @@ from mortgage.models import MortgageOffer
 
 
 class ApiViewsTests(TestCase):
-    """Создаем тестовую модель ипотечного предложения и
-    тестовую модель пользователя."""
+    """
+    Create a test mortgage offer model and a test user model.
+    """
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.offer = MortgageOffer.objects.create(
-            bank_name='alpha',
+            bank_name="alpha",
             term_min=20,
             term_max=30,
             rate_min=2.5,
@@ -24,42 +26,49 @@ class ApiViewsTests(TestCase):
         )
 
     def setUp(self):
-        """Создаем клиент гостя."""
+        """
+        Create a guest client.
+        """
+
         self.guest_client = APIClient()
 
     def test_create_product(self):
-        """Post запрос создает запись в модели."""
+        """
+        POST request creates a new record in the model.
+        """
+
         offer_count = MortgageOffer.objects.count()
         data = {
-            'bank_name': 'sberra',
-            'term_min': 30,
-            'term_max': 40,
-            'rate_min': 3.5,
-            'rate_max': 9.7,
-            'payment_min': 2000000,
-            'payment_max': 20000000
+            "bank_name": "sberra",
+            "term_min": 30,
+            "term_max": 40,
+            "rate_min": 3.5,
+            "rate_max": 9.7,
+            "payment_min": 2000000,
+            "payment_max": 20000000
         }
         response = self.guest_client.post(
-            reverse(
-                'mortgageoffer-list'
-            ),
+            reverse("mortgageoffer-list"),
             data=data,
-            format='json'
+            format="json"
         )
         new_offer = MortgageOffer.objects.last()
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
         self.assertEqual(MortgageOffer.objects.count(), offer_count + 1)
-        self.assertEqual(new_offer.bank_name, data['bank_name'])
+        self.assertEqual(new_offer.bank_name, data["bank_name"])
 
     def test_delete_product(self):
-        """Delete запрос удаляет запись из модели."""
+        """
+        DELETE request removes a record from the model.
+        """
+
         offer_count = MortgageOffer.objects.count()
         response = self.guest_client.delete(
             reverse(
-                'mortgageoffer-detail',
-                kwargs={'pk': ApiViewsTests.offer.id}
+                "mortgageoffer-detail",
+                kwargs={"pk": ApiViewsTests.offer.id}
             ),
-            format='json'
+            format="json"
         )
         self.assertEqual(response.status_code, HTTPStatus.NO_CONTENT)
         self.assertEqual(MortgageOffer.objects.count(), offer_count - 1)

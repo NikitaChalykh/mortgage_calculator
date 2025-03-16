@@ -1,36 +1,36 @@
-REST API агрегатор и калькулятор ипотечных предложений
+REST API aggregator and calculator of mortgage offers
 =====
 
-Описание проекта
+Project description
 ----------
 
-Проект основан на Django Rest Framework, аутентификация в проекте не предусмотрена, настроены модели для отображения в панели администратора. 
+The project is based on Django Rest Framework, authentication is not provided in the project, models are configured for display in the admin panel.
 
-Проект разворачивается в трех Docker контейнерах: web-приложение, postgresql-база данных и nginx-сервер. 
+The project is deployed in three Docker containers: web application, postgresql database and nginx server.
 
-Реализованы тесты эндпоинтов и моделей проекта.
+Endpoint and project model tests are implemented.
 
-Реализована сортировка выходных данных API по расчитанному ежемесячному платежу и по рассчитанной ставке.
+Sorting of API output data by calculated monthly payment and by calculated rate is implemented.
 
-Пользовательский сценарий
+User scenario
 ----------
-Клиент вводит следующие данные:
-1. Стоимость объекта недвижимости, в рублях без копеек.
-2. Первоначальный взнос, в рублях без копеек.
-3. Срок, в годах.
+The client enters the following data:
+1. Cost of the property, in rubles without kopecks.
+2. Initial payment, in rubles without kopecks.
+3. Term, in years.
 
-В ответ клиенту приходит массив с объектами ипотечных предложений. В каждом объекте есть следующие данные:
-1. Наименование банка.
-2. Ипотечная ставка, в процентах.
-3. Платеж по ипотеке, в рублях без копеек.
+In response, the client receives an array with mortgage offer objects. Each object contains the following data:
+1. Bank name.
+2. Mortgage rate, in percent.
+3. Mortgage payment, in rubles without kopecks.
 
-Системные требования
+System requirements
 ----------
 * Python 3.8+
 * Docker
 * Works on Linux
 
-Стек технологий
+Tech stack
 ----------
 * Python 3.8+
 * Django 3.1
@@ -41,39 +41,40 @@ REST API агрегатор и калькулятор ипотечных пре�
 * Docker, Docker Compose
 * unittest
 
-Установка проекта из репозитория
+Installing the project from the repository
 ----------
-1. Клонирование репозитория:
+1. Cloning the repository:
 ```bash
 git clone git@contest.idacloud.ru:Nikita223/mortgage_calculator.git
 
-cd mortgage_calculator # Переходим в директорию с проектом
+cd mortgage_calculator # Go to the directory with the project
 ```
 
-2. Создайте файл ```.env``` используя ```env.example``` в качестве шаблона в папке infra
+2. Create a ```.env``` file using ```env.example``` as a template in the infra folder
 
-3. Установка и запуск приложения в контейнерах:
-```bash 
+3. Installing and running the application in containers:
+```bash
 docker-compose up -d
 ```
 
-4. Запуск миграций, сбор статики, создание суперпользователя и запуск тестов:
-```bash 
-docker-compose exec web python manage.py migrate
+4. Running migrations, collecting statics, creating a superuser and running tests:
+```bash
 
-docker-compose exec web python manage.py collectstatic --no-input
+docker compose exec web python manage.py migrate
 
-docker-compose exec web python manage.py createsuperuser
+docker compose exec web python manage.py collectstatic --no-input
 
-docker-compose exec web python manage.py test 
+docker compose exec web python manage.py createsuperuser
+
+docker compose exec web python manage.py test
 ```
 
-Работа с проектом
+Working with the project
 ----------
-Документация по работе API сервиса:
+Documentation on the API service:
 
 ```http://127.0.0.1/api/docs/```
 
-Админка сервиса:
+Service admin panel:
 
 ```http://127.0.0.1/admin/```

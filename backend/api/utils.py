@@ -1,17 +1,17 @@
 def mortgage_calculator(obj, price, deposit, term=None):
-    # пропорция для нахождения годовой ставки
+    # Proportion to determine the annual interest rate
     ratio = ((int(price) - int(deposit)) - obj.payment_min) / (
         obj.payment_max - obj.payment_min
     )
-    # годовая ставка по кредиту
+    # Annual interest rate on the loan
     rate = obj.rate_min + (obj.rate_max - obj.rate_min) * ratio
     if term is None:
         return rate
-    # ежемесячная процентная ставка по кредиту
+    # Monthly interest rate on the loan
     month_rate = rate / 1200
-    # общая ставка по кредиту
+    # Total loan rate
     global_rate = (1 + month_rate) ** (int(term) * 12)
-    # расчитываем аннуитентный платеж
+    # Calculate annuity payment
     return ((int(price) - int(deposit)) * month_rate * global_rate) / (
         global_rate - 1
     )

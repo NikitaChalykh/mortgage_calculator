@@ -11,13 +11,15 @@ User = get_user_model()
 
 
 class ApiURLTests(TestCase):
-    """Создаем тестовую модель ипотченого
-    предложения."""
+    """
+    Create a test mortgage offer model.
+    """
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.offer = MortgageOffer.objects.create(
-            bank_name='alpha',
+            bank_name="alpha",
             term_min=20,
             term_max=30,
             rate_min=2.5,
@@ -27,16 +29,22 @@ class ApiURLTests(TestCase):
         )
 
     def setUp(self):
-        """Создаем клиент гостя."""
+        """
+        Create a guest client.
+        """
+
         self.guest_client = APIClient()
 
     def test_urls_response_guest(self):
-        """Проверяем статус страниц для гостя."""
+        """
+        Check page status for a guest user.
+        """
+
         url_status = {
-            reverse('mortgageoffer-list'): HTTPStatus.OK,
+            reverse("mortgageoffer-list"): HTTPStatus.OK,
             reverse(
-                'mortgageoffer-detail',
-                kwargs={'pk': ApiURLTests.offer.id}
+                "mortgageoffer-detail",
+                kwargs={"pk": ApiURLTests.offer.id}
             ): HTTPStatus.OK
         }
         for url, status_code in url_status.items():
