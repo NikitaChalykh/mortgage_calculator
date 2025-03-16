@@ -54,7 +54,7 @@ cd mortgage_calculator # Go to the directory with the project
 
 3. Installing and running the application in containers:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 4. Running migrations, collecting statics, creating a superuser and running tests:
